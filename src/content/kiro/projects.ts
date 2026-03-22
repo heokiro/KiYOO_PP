@@ -126,7 +126,7 @@ export const projects: Project[] = [
     categories: ['exhibition'],
     skills: ['arduino', 'web', 'unity'],
     thumbnail: '/assets/images/kiro/입춘.png',
-    media: [{ type: 'video', url: '/assets/images/kiro/IMG_5794.MOV' }],
+    media: [{ type: 'video', url: '/assets/images/kiro/입춘_영상_1.mp4' }],
     shortDescription: 'Firebase 기반 실시간 조명 제어 시스템',
     fullDescription: `갤러리잔느 전시에 참여작가로 참여한 프로젝트입니다.
 

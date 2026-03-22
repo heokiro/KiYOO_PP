@@ -7,7 +7,7 @@ import * as S from './styles';
 
 const navItems = [
   { label: 'Home', href: '#hero' },
-  { label: 'About', href: '#about' },
+  { label: 'Capabilities', href: '#capabilities' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
 ];

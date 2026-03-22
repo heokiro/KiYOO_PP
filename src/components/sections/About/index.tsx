@@ -1,82 +1,91 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FiDownload } from 'react-icons/fi';
+import {
+  SiUnity, SiUnrealengine, SiArduino, SiRaspberrypi,
+  SiBlender, SiReact, SiTypescript, SiNodedotjs, SiPython,
+  SiFigma, SiDocker,
+} from 'react-icons/si';
+import {
+  FiCpu, FiTarget, FiShare2, FiZap, FiBox,
+  FiFilm, FiPenTool, FiLayout, FiCloud,
+} from 'react-icons/fi';
 import { about } from '../../../content';
-import type { Highlight } from '../../../types/content.types';
-import { Container, Button, Heading2 } from '../../common';
+import type { CapabilityTool } from '../../../types/content.types';
+import { Container } from '../../common';
 import { useScrollReveal } from '../../../hooks';
 import * as S from './styles';
+
+const iconMap: Record<string, React.ComponentType<{ size?: number }>> = {
+  SiUnity,
+  SiUnrealengine,
+  SiArduino,
+  SiRaspberrypi,
+  SiBlender,
+  SiReact,
+  SiTypescript,
+  SiNodedotjs,
+  SiPython,
+  SiFigma,
+  SiDocker,
+  SiAdobeaftereffects: FiFilm,
+  SiAdobepremierepro: FiFilm,
+  SiAdobeillustrator: FiPenTool,
+  SiAdobexd: FiLayout,
+  SiAmazonwebservices: FiCloud,
+  FiCpu,
+  FiTarget,
+  FiShare2,
+  FiZap,
+};
+
+const ToolIconComponent: React.FC<{ tool: CapabilityTool }> = ({ tool }) => {
+  const IconComp = iconMap[tool.icon];
+  return (
+    <S.ToolIcon title={tool.name}>
+      {IconComp ? <IconComp size={20} /> : <FiBox size={20} />}
+    </S.ToolIcon>
+  );
+};
 
 export const About: React.FC = () => {
   const { ref, isVisible } = useScrollReveal<HTMLElement>();
 
   return (
-    <S.AboutSection id="about" ref={ref}>
+    <S.CapabilitiesSection id="capabilities" ref={ref}>
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
         >
-          <S.Header>
-            <Heading2 gradient align="center">
-              {about.title}
-            </Heading2>
-            {about.subtitle && <S.Subtitle>{about.subtitle}</S.Subtitle>}
-          </S.Header>
+          <S.Heading>{about.heading}</S.Heading>
         </motion.div>
 
-        <S.Content>
-          {about.image && (
+        <S.Grid>
+          {about.items.map((cap, i) => (
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={isVisible ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isVisible ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
             >
-              <S.ImageWrapper>
-                <S.Image src={about.image} alt={about.imageAlt || 'Profile'} />
-                <S.ImageOverlay />
-              </S.ImageWrapper>
-            </motion.div>
-          )}
-
-          <S.TextContent>
-            <motion.div
-              initial={{ opacity: 0, x: 50 }}
-              animate={isVisible ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              {about.paragraphs.map((paragraph: string, index: number) => (
-                <S.Paragraph key={index}>{paragraph}</S.Paragraph>
-              ))}
-
-              {about.highlights && (
-                <S.Highlights>
-                  {about.highlights.map((highlight: Highlight, index: number) => (
-                    <S.HighlightItem key={index}>
-                      <S.HighlightValue>{highlight.value}</S.HighlightValue>
-                      <S.HighlightLabel>{highlight.label}</S.HighlightLabel>
-                    </S.HighlightItem>
+              <S.Card>
+                <S.ToolRow>
+                  {cap.tools.map((tool, j) => (
+                    <React.Fragment key={j}>
+                      {j > 0 && <S.ToolSeparator>×</S.ToolSeparator>}
+                      <ToolIconComponent tool={tool} />
+                    </React.Fragment>
                   ))}
-                </S.Highlights>
-              )}
-
-              {about.resume?.show && (
-                <Button
-                  as="a"
-                  href={about.resume.href}
-                  download
-                  variant="primary"
-                  size="lg"
-                >
-                  <FiDownload />
-                  {about.resume.text}
-                </Button>
-              )}
+                </S.ToolRow>
+                <S.CardTitle>{cap.title}</S.CardTitle>
+                <S.CardDescEn>{cap.descriptionEn}</S.CardDescEn>
+                <S.CardDescKo>{cap.descriptionKo}</S.CardDescKo>
+              </S.Card>
             </motion.div>
-          </S.TextContent>
-        </S.Content>
+          ))}
+        </S.Grid>
       </Container>
-    </S.AboutSection>
+    </S.CapabilitiesSection>
   );
 };

@@ -170,6 +170,46 @@ export const CardOverlay = styled.div`
   ${CardWrapper}:hover & {
     opacity: 1;
   }
+
+  ${({ theme }) => theme.media.down.md} {
+    display: none;
+  }
+`;
+
+// Mobile-only bottom info bar
+export const CardMobileInfo = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: ${({ theme }) => `${theme.spacing[5]} ${theme.spacing[5]}`};
+  padding-top: ${({ theme }) => theme.spacing[8]};
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+  display: none;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing[2]};
+
+  ${({ theme }) => theme.media.down.md} {
+    display: flex;
+  }
+`;
+
+export const MobileCategory = styled.span`
+  font-size: ${({ theme }) => theme.typography.fontSize.base};
+  color: ${({ theme }) => theme.colors.secondary};
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  flex-shrink: 0;
+`;
+
+export const MobileTitle = styled.span`
+  font-size: ${({ theme }) => theme.typography.fontSize.lg};
+  color: #ffffff;
+  font-weight: ${({ theme }) => theme.typography.fontWeight.semibold};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const OverlayCategory = styled.span`
@@ -256,15 +296,43 @@ export const ModalOverlay = styled.div`
   align-items: center;
   justify-content: center;
   padding: ${({ theme }) => theme.spacing[4]};
+
+  ${({ theme }) => theme.media.down.md} {
+    padding: ${({ theme }) => theme.spacing[2]};
+  }
 `;
 
 export const ModalContent = styled.div`
   background: ${({ theme }) => theme.colors.surface};
   border-radius: ${({ theme }) => theme.borders.radius.xl};
-  max-width: 900px;
+  max-width: min(900px, calc(100vw - 1rem));
   max-height: 90vh;
   width: 100%;
+  overflow: hidden;
+`;
+
+export const ModalScroll = styled.div`
+  max-height: 90vh;
   overflow-y: auto;
+  overflow-x: hidden;
+  padding: ${({ theme }) => theme.spacing[6]};
+  padding-bottom: 0;
+
+  ${({ theme }) => theme.media.down.md} {
+    padding: ${({ theme }) => theme.spacing[3]};
+    padding-bottom: 0;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+  }
 `;
 
 export const ModalImage = styled.div`
@@ -281,7 +349,7 @@ export const ModalImage = styled.div`
 `;
 
 export const ModalBody = styled.div`
-  padding: ${({ theme }) => theme.spacing[8]};
+  padding: ${({ theme }) => theme.spacing[6]} 0;
 `;
 
 export const ModalHeader = styled.div`
@@ -294,6 +362,10 @@ export const ModalHeader = styled.div`
 export const ModalTitle = styled.h2`
   font-size: ${({ theme }) => theme.typography.fontSize['3xl']};
   margin: 0;
+
+  ${({ theme }) => theme.media.down.md} {
+    font-size: ${({ theme }) => theme.typography.fontSize.xl};
+  }
 `;
 
 export const CloseButton = styled.button`
@@ -334,9 +406,8 @@ export const CarouselWrapper = styled.div`
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: ${({ theme }) => theme.colors.surface};
-  border-radius: ${({ theme }) => theme.borders.radius.xl}
-    ${({ theme }) => theme.borders.radius.xl} 0 0;
+  background: ${({ theme }) => theme.colors.surfaceElevated};
+  border-radius: ${({ theme }) => theme.borders.radius.lg};
 `;
 
 export const CarouselImage = styled.img`

@@ -31,6 +31,11 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) =>
             <S.ViewButton>View Project</S.ViewButton>
           </motion.div>
         </S.CardOverlay>
+
+        <S.CardMobileInfo>
+          <S.MobileCategory>{project.categories.join(' / ')}</S.MobileCategory>
+          <S.MobileTitle>{project.title}</S.MobileTitle>
+        </S.CardMobileInfo>
       </S.CardImage>
 
     </S.CardWrapper>

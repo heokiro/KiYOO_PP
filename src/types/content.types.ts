@@ -50,24 +50,22 @@ export interface HeroData {
   background?: HeroBackground;
 }
 
-// === About ===
-export interface Highlight {
-  label: string;
-  value: string | number;
+// === Capabilities (formerly About) ===
+export interface CapabilityTool {
+  name: string;
+  icon: string;
 }
 
-export interface AboutData {
+export interface Capability {
   title: string;
-  subtitle?: string;
-  image?: string;
-  imageAlt?: string;
-  paragraphs: string[];
-  highlights?: Highlight[];
-  resume?: {
-    show: boolean;
-    href: string;
-    text: string;
-  };
+  tools: CapabilityTool[];
+  descriptionEn: string;
+  descriptionKo: string;
+}
+
+export interface CapabilitiesData {
+  heading: string;
+  items: Capability[];
 }
 
 // === Projects ===
